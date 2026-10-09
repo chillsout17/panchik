@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Красивые места Нижнекамска для фото</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">НК</span>
+        <span class="logo-text">Фотоместа</span>
+      </a>
+      <nav class="nav">
+        <a href="#places">Места</a>
+        <a href="#about">О проекте</a>
+      </nav>
+      <div class="header-actions">
+        <div class="auth-zone" id="auth-zone"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <h1>Красивые места<br>Нижнекамска</h1>
+      <p class="hero-subtitle">
+        Подборка локаций, где получаются хорошие фотографии — парки, набережные, архитектура и природа.
+      </p>
+      <div class="hero-meta">
+        <span id="places-count">0</span> мест · обновляется вручную
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+  <main class="container" id="places">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="search" id="search-input" placeholder="Поиск по названию или адресу…">
+      </div>
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="park">Парки</button>
+        <button class="filter-btn" data-filter="water">Вода</button>
+        <button class="filter-btn" data-filter="architecture">Архитектура</button>
+        <button class="filter-btn" data-filter="nature">Природа</button>
+        <button class="filter-btn filter-fav" data-filter="favorites">♥ Избранное</button>
+      </div>
+    </div>
+
+    <div class="cards" id="cards"></div>
+  </main>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="container about-inner">
+      <h2>О проекте</h2>
+      <p>
+        Небольшой гид по фотогеничным местам Нижнекамска. Здесь собраны локации,
+        которые я сам люблю — с координатами, описанием и картой. Всё для того,
+        чтобы не искать вслепую, а просто прийти и снять.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="logo">
+          <span class="logo-mark">НК</span>
+          <span class="logo-text">Фотоместа</span>
+        </div>
+        <p class="footer-desc">Гид по красивым местам Нижнекамска для фотографий.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="#places">Места</a></li>
+          <li><a href="#about">О проекте</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Связаться</h4>
+        <ul>
+          <li><a href="mailto:hello@example.com">kostya228@gmail.com</a></li>
+          <li><a href="https://t.me/wohers10" target="_blank" rel="noopener">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== МОДАЛЬНОЕ ОКНО МЕСТА ===== -->
+  <div class="modal" id="place-modal">
+    <div class="modal-overlay" data-close-place></div>
+    <div class="modal-content">
+      <button class="modal-close" data-close-place aria-label="Закрыть">&times;</button>
+      <img class="modal-image" id="modal-image" src="" alt="">
+      <div class="modal-body">
+        <div class="modal-head">
+          <div>
+            <span class="card-tag" id="modal-tag"></span>
+            <h2 id="modal-title"></h2>
+            <p class="address" id="modal-address"></p>
+          </div>
+          <button class="fav-btn fav-btn-lg" id="modal-fav" aria-label="В избранное">♥</button>
+        </div>
+        <p class="description" id="modal-description"></p>
+
+        <div class="mini-map">
+          <iframe id="modal-map" src="" frameborder="0" allowfullscreen="true" loading="lazy"></iframe>
+        </div>
+
+        <a class="map-link" id="modal-map-link" href="#" target="_blank" rel="noopener">
+          Открыть в Яндекс.Картах →
+        </a>
+
+        <!-- ===== КОММЕНТАРИИ ===== -->
+        <section class="comments-section">
+          <h3>Отзывы <span class="comments-count" id="comments-count"></span></h3>
+          <div class="comment-form" id="comment-form-wrap">
+            <textarea id="comment-input" placeholder="Поделитесь впечатлением об этом месте…" rows="3"></textarea>
+            <div class="comment-form-footer">
+              <span class="comment-hint" id="comment-hint"></span>
+              <button class="btn-primary" id="comment-submit">Отправить</button>
+            </div>
+          </div>
+          <ul class="comments-list" id="comments-list"></ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== МОДАЛЬНОЕ ОКНО АВТОРИЗАЦИИ ===== -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-overlay" data-close-auth></div>
+    <div class="modal-content modal-auth">
+      <button class="modal-close" data-close-auth aria-label="Закрыть">&times;</button>
+      <div class="auth-body">
+        <h2 id="auth-title">Вход</h2>
+        <p class="auth-sub" id="auth-sub">Войдите, чтобы оставлять отзывы и сохранять места.</p>
+
+        <form id="auth-form" novalidate>
+          <label class="field" id="field-name" hidden>
+            <span>Имя</span>
+            <input type="text" id="auth-name" autocomplete="name" placeholder="Как вас зовут">
+          </label>
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="auth-email" autocomplete="email" placeholder="you@example.com" required>
+          </label>
+          <label class="field">
+            <span>Пароль</span>
+            <input type="password" id="auth-password" autocomplete="current-password" placeholder="Минимум 6 символов" required>
+          </label>
+
+          <div class="auth-error" id="auth-error"></div>
+
+          <button type="submit" class="btn-primary btn-block" id="auth-submit">Войти</button>
+        </form>
+
+        <p class="auth-switch">
+          <span id="auth-switch-text">Нет аккаунта?</span>
+          <button type="button" id="auth-switch-btn" class="link-btn">Зарегистрироваться</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Подключаем модули по порядку -->
+  <script src="js/storage.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/comments.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
